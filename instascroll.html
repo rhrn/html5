@@ -14,25 +14,19 @@
 				var stepHeight = Math.ceil(innerHeight / steps) - calibrate;
 				var outerStep = Math.ceil(outHeight / steps);
 		
-				$('#scrolling').append('<div class="dots"></div>');
+				$('#scrolling').append('<div id="slider"></div>');
 		
-				$('.dots').css({height: stepHeight});
-
-				$('.dots').on('click', function(e) {
-					var position = $(this).attr('position');
-					$('body').animate({scrollTop: position}, 1000);
-				});
+				$('#slider').css({height: stepHeight});
 
 				$(document).on('scroll', function(e) {
 					var percent = Math.ceil(window.scrollY * innerHeight / outHeight);
-					$('.dots').css({top: percent + 'px'});
+					$('#slider').css({top: percent + 'px'});
 				});
 
 				$('#scrolling').on('click', function(e) {
 					var position = Math.ceil($(document).height() / ($(this).height() / (e.clientY - 10)));
-					$('.dots').animate({top: e.clientY + 'px'}, 1000);
+					$('#slider').animate({top: e.clientY + 'px'}, 1000);
 					$('body').animate({scrollTop: position}, 1000);
-					console.log(e);
 				});
 			});
 
@@ -59,22 +53,16 @@
 				border:1px solid #ddd;
 			}
 			
-			#scrolling .dots {
+			#scrolling #slider {
 				border:1px solid #ddd;
 				width:100%;
 				position:absolute;
-			}
-
-			#scrolling .dots:last {
-				right:0;
-				botom:0;
 			}
 		</style>
 	</head>
 
 	<body>
 		<div id="scrolling"></div>
-		<div id="pagination"></div>
 	</body>
 
 </html>
