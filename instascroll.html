@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+		<script>
+
+			$(function() {
+
+				var calibrate = 2;
+				var outHeight = $(document).height();
+				var innerHeight = $(window).height();
+				var steps = Math.ceil(outHeight / innerHeight);
+				var stepHeight = Math.ceil(innerHeight / steps) - calibrate;
+				var outerStep = Math.ceil(outHeight / steps);
+		
+				$('#scrolling').append('<div id="slider"></div>');
+		
+				$('#slider').css({height: stepHeight});
+
+				$(document).on('scroll', function(e) {
+					var percent = Math.ceil(window.scrollY * innerHeight / outHeight);
+					$('#slider').css({top: percent + 'px'});
+				});
+
+				$('#scrolling').on('click', function(e) {
+					var position = Math.ceil($(document).height() / ($(this).height() / (e.clientY - 10)));
+					$('#slider').animate({top: e.clientY + 'px'}, 1000);
+					$('body').animate({scrollTop: position}, 1000);
+				});
+			});
+
+		</script>
+
+		<style>
+			html {
+				//overflow:hidden;
+			}
+
+			body {
+				height: 9000px;
+				background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJUlEQVQYV2NkcAn9z7BnNSMDAUBQAUz/oFKIw3ODyo3YAh7obgD0+AejAWpS9AAAAABJRU5ErkJggg==);
+			}
+			#scrolling {
+
+				position: fixed;
+				top:0;
+				right:0;
+				width:1%;
+				height:100%;
+
+				background:#eee;
+				border:1px solid #ddd;
+			}
+			
+			#scrolling #slider {
+				border:1px solid #ddd;
+				width:100%;
+				position:absolute;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="scrolling"></div>
+	</body>
+
+</html>
